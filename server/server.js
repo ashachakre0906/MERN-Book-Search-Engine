@@ -26,7 +26,7 @@ app.get('/', (req, res) => {
 });
 
 const startApolloServer = async (typeDefs, resolvers) => {
-  // await server.start();
+  await server.start();
   server.applyMiddleware({ app });
   
   db.once('open', () => {
