@@ -39,4 +39,21 @@ THEN that book is deleted from my saved books list
 WHEN I click on the Logout button
 THEN I am logged out of the site and presented with a menu with the options Search for Books and Login/Signup and an input field to search for books and a submit button  
 ```
+***To complete the assignment, we will need to do the following***
 
+- Set up an Apollo Server to use GraphQL queries and mutations to fetch and modify data, replacing the existing RESTful API.
+
+- Modify the existing authentication middleware so that it works in the context of a GraphQL API.
+
+- Create an Apollo Provider so that requests can communicate with an Apollo Server
+
+#### Apollo Server that uses GraphQL queries and mutations to fetch and modify data, replacing the existing RESTful API.
+Apollo Server that uses GraphQL queries and mutations to fetch and modify data, replacing the existing RESTful API.
+
+```js
+const server = new ApolloServer({
+  typeDefs,
+  resolvers,
+  context: authMiddleware,
+});
+```
