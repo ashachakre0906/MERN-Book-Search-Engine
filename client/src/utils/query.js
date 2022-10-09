@@ -4,7 +4,7 @@ export const GET_ME = gql`{
   query Query {
     me {
       _id
-      username
+      username  
       email
       password
       bookCount
@@ -18,4 +18,5 @@ export const GET_ME = gql`{
       }
     }
   }
+} 
 `;
