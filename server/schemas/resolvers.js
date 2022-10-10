@@ -25,21 +25,20 @@ const resolvers = {
       console.log(token)
       return { token, user };
     },
-    saveBook: async(parent, {authors,description,title,bookId,image,link},context) => {
+    saveBook: async(parent, { bookData },context) => {
       try {
-        const updatedUser = await User.findOneAndUpdate(
+        if (context.user){
+        return await User.findOneAndUpdate(
           { _id: context.user._id },
-          { $addToSet: { savedBooks: {
-            authors,description,title,bookId,image,link
-          } 
-        } },
+          { $addToSet: { savedBooks: { ...bookData } } } ,
           { new: true, runValidators: true }
         );
-        return { updatedUser };
+        }
+        else throw new error("Not loggedd in");
       } catch (err) {
         console.log(err);
-        return AuthenticationError;
-      }
+        throw new Error(err);
+      };
     },
     removeBook: async (parent,{ bookId },context)=> {
       const updatedUser = await User.findOneAndUpdate(
@@ -50,7 +49,8 @@ const resolvers = {
       if (!updatedUser) {
         return;
       }
-      return { updatedUser };
+      return updatedUser;
+      console.log(updatedUser);
     },
   },
   
