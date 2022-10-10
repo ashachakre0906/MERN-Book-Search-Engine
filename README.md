@@ -47,8 +47,8 @@ THEN I am logged out of the site and presented with a menu with the options Sear
 
 - Create an Apollo Provider so that requests can communicate with an Apollo Server
 
+### Code Examples and Screenshots
 #### Apollo Server that uses GraphQL queries and mutations to fetch and modify data, replacing the existing RESTful API.
-Apollo Server that uses GraphQL queries and mutations to fetch and modify data, replacing the existing RESTful API.
 
 ```js
 const server = new ApolloServer({
@@ -57,3 +57,29 @@ const server = new ApolloServer({
   context: authMiddleware,
 });
 ```
+#### Create an Apollo Provider to make every request work with the Apollo server####
+```js
+const client = new ApolloClient({
+  uri: '/graphql',
+  cache: new InMemoryCache(),
+});
+```
+<img src="./client/public/image.png">
+
+### Technologies Used
+
+## Technologies Used
+![Javascript Badge](https://img.shields.io/badge/language-Javascript-blue.svg)
+![Express Badge](https://img.shields.io/badge/backend-Express-yellow.svg)
+![Node Badge](https://img.shields.io/badge/backend-Node-orange.svg)
+![apollo-server-express Badge](https://img.shields.io/badge/Apolloserver-magenta.svg)
+![Deployment Badge](https://img.shields.io/badge/Deployment-Heroku-green.svg)
+
+## Credits
+Thank you all TA's helping for helping me with heroku deployment.
+
+## Questions
+Please reach out to me:<br>
+Email Address: chourpagar.asha@gmail.com <br>
+Github Repo URL:[GitHub](https://github.com/ashachakre0906)
+

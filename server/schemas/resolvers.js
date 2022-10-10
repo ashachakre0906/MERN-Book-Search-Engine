@@ -1,29 +1,36 @@
 const { AuthenticationError } = require("apollo-server-express");
-const { User, Book } = require("../models");
+const { User } = require("../models");
 const { signToken } = require("../utils/auth");
 
 const resolvers = {
   Query: {
+  //   me: async (parent, args, context) => {
+  //     if (context.user) {
+  //       const userData = await User.findOne({ _id: context.user._id }).select('-__v -password');
+
+  //       return userData;
+  //     }
+  //   },
+  // },
     user: async (parent, { username, _id }, context) => {
       try {
         return await User.findOne({
           $or: [{ _id: _id }, { username }],
         });
       } catch (error) {
-        throw new Error(error);
+        throw new AuthenticationError(error);
       }
     },
     me: async (parent, args, context) => {
       try {
-        if (!context.user) throw new Error('Not logged in!');
+        if (!context.user) throw new AuthenticationError('Not logged in!');
         const user =  findById(context.user._id);
         return user;
       } catch (error){
-        throw new Error (error);
+        throw new AuthenticationError(error);
       }
     }
   },
-
   Mutation: {
     addUser: async (parent, { username, email, password }) => {
       console.log("test");
@@ -49,15 +56,16 @@ const resolvers = {
     saveBook: async (parent, { bookData }, context) => {
       try {
         if (context.user) {
+          console.log(context.user);
           return await User.findOneAndUpdate(
             { _id: context.user._id },
             { $addToSet: { savedBooks: { ...bookData } } },
             { new: true, runValidators: true }
           );
-        } else throw new Error("Not loggedd in");
+        } else throw new AuthenticationError("Not loggedd in");
       } catch (err) {
         console.log(err);
-        throw new Error(err);
+        throw new AuthenticationError(err);
       }
     },
     removeBook: async (parent, { bookId }, context) => {
