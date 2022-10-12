@@ -53,13 +53,13 @@ const resolvers = {
       console.log(token);
       return { token, user };
     },
-    saveBook: async (parent, { bookData }, context) => {
+    saveBook: async (parent, { book }, context) => {
       try {
         if (context.user) {
           console.log(context.user);
           return await User.findOneAndUpdate(
             { _id: context.user._id },
-            { $addToSet: { savedBooks: { ...bookData } } },
+            { $addToSet: { savedBooks: { ...book } } },
             { new: true, runValidators: true }
           );
         } else throw new AuthenticationError("Not loggedd in");

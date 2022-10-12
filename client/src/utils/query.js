@@ -8,12 +8,12 @@ query Me {
     email
     bookCount
     savedBooks {
+      bookId
       authors
       description
-      bookId
+      title
       image
       link
-      title
     }
   }
 }

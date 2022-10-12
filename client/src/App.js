@@ -1,15 +1,41 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client'
+import {
+  ApolloClient,
+  InMemoryCache,
+  ApolloProvider,
+  createHttpLink,
+} from '@apollo/client';
+import { setContext } from '@apollo/client/link/context';
+
 import SearchBooks from './pages/SearchBooks';
 import SavedBooks from './pages/SavedBooks';
 import Navbar from './components/Navbar';
 //Created an Apollo provider to make every request work with the Apollo server
-const client = new ApolloClient({
+const httpLink = createHttpLink({
   uri: '/graphql',
-  cache: new InMemoryCache(),
+});
+// config for the pipeline
+const authLink = setContext((_, { headers }) => {
+  // get the authentication token from local storage if it exists
+  const token = localStorage.getItem('id_token');
+  // return the headers to the context so httpLink can read them
+  return {
+    headers: {
+      ...headers,
+      authorization: token ? `Bearer ${token}` : '',
+    },
+  };
 });
 
+// creates the pipeline
+const client = new ApolloClient({
+  // before the request gets sent to our graphql server
+  // authlink will set the header for authorization if there's a token
+  // then httpLink will forward the request to the endpoint
+  link: authLink.concat(httpLink),
+  cache: new InMemoryCache(),
+});
 function App() {
   return (
     <ApolloProvider client={client}>

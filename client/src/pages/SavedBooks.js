@@ -9,9 +9,10 @@ import { REMOVE_BOOK } from '../utils/mutation';
 
 const SavedBooks = () => {
   // const [userData, setUserData] = useState({});
-  const { loading, data } = useQuery(GET_ME);
-  console.log(data);
-  const userData = data?.me || {};
+  const { loading, data } = useQuery(GET_ME);//
+
+  // console.log(data);
+  const userData = data?.me || {};//keep the track of loading state,does data does exist 
   console.log(userData); 
 
   const [deleteBook] = useMutation(REMOVE_BOOK);
