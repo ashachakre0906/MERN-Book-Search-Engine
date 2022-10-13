@@ -4,14 +4,14 @@ const { signToken } = require("../utils/auth");
 
 const resolvers = {
   Query: {
-  //   me: async (parent, args, context) => {
-  //     if (context.user) {
-  //       const userData = await User.findOne({ _id: context.user._id }).select('-__v -password');
+    me: async (parent, args, context) => {
+      if (context.user) {
+        const userData = await User.findOne({ _id: context.user._id }).select('-__v -password');
 
-  //       return userData;
-  //     }
-  //   },
-  // },
+        return userData;
+      }
+    },
+  },
     user: async (parent, { username, _id }, context) => {
       try {
         return await User.findOne({
@@ -21,16 +21,16 @@ const resolvers = {
         throw new AuthenticationError(error);
       }
     },
-    me: async (parent, args, context) => {
-      try {
-        if (!context.user) throw new AuthenticationError('Not logged in!');
-        const user =  findById(context.user._id);
-        return user;
-      } catch (error){
-        throw new AuthenticationError(error);
-      }
-    }
-  },
+    // me: async (parent, args, context) => {
+    //   try {
+    //     if (!context.user) throw new AuthenticationError('Not logged in!');
+    //     const user =  findById(context.user._id);
+    //     return user;
+    //   } catch (error){
+    //     throw new AuthenticationError(error);
+    //   }
+    // }
+  // },
   Mutation: {
     addUser: async (parent, { username, email, password }) => {
       console.log("test");

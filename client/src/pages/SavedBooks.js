@@ -12,6 +12,7 @@ const SavedBooks = () => {
   const { loading, data } = useQuery(GET_ME);//
 
   // console.log(data);
+  //This is using GET_ME query, and if the query returns with nothing it provides an empty object
   const userData = data?.me || {};//keep the track of loading state,does data does exist 
   console.log(userData); 
 
