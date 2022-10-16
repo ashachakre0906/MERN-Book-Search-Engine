@@ -81,8 +81,8 @@ const SavedBooks = () => {
   };
   // funtion to refresh the page after clicking on delete book
   function refreshPage (){
-    window.location.reload();
-  }
+    window.location.href = window.location.href;
+    }
   
   // if data isn't here yet, say so
   if (!userDataLength) {
