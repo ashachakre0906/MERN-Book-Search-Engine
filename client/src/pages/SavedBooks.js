@@ -80,9 +80,9 @@ const SavedBooks = () => {
     }
   };
   // funtion to refresh the page after clicking on delete book
-  function refreshPage (){
-    window.location.replace('/saved');
-    }
+  // function refreshPage (){
+  //   window.location.replace('/saved');
+  //   }
   
   // if data isn't here yet, say so
   if (!userDataLength) {
@@ -121,9 +121,8 @@ const SavedBooks = () => {
                   <Card.Text>{book.description}</Card.Text>
                   <Button
                     className="btn-block btn-danger"
-                    onClick={() => {handleDeleteBook(book.bookId);
-                      refreshPage();
-                    }}
+                    onClick={() => handleDeleteBook(book.bookId)}
+                      // refreshPage();
                   >
                     Delete this Book!
                   </Button>
